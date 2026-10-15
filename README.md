@@ -6,6 +6,7 @@ Tienda web estática, responsive y pensada primero para celulares. No necesita i
 
 - Catálogo filtrable por series/categorías.
 - Personalizador de producto, talle, color, ubicación de estampa y notas.
+- Opción de escribir un texto propio (por ejemplo, JUJUTSU KAISEN, BLEACH o DRAGON BALL) y verlo en vivo sobre la remera.
 - Vista previa de la remera con estampas de logo, en vez de solo emojis.
 - Catálogo inicial de logos de Akatsuki, Kimetsu no Yaiba, Dragon Ball, Jujutsu Kaisen, Bleach y Naruto.
 - Carrito y total estimado.

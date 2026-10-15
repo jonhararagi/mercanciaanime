@@ -34,4 +34,4 @@ Los logos, nombres, personajes y marcas de anime pertenecen a sus respectivos ti
 
 ## Estado y limitaciones
 
-El código de la API y el panel está en el repositorio, pero el despliegue y las pruebas reales aún están pendientes. Esta versión no procesa pagos ni confirma stock. Antes de vender, completá los pasos de despliegue, probá el panel y los pedidos, y activá protección antiabuso en Cloudflare.
+El código de la API y el panel está en el repositorio. GitHub Actions valida automáticamente la sintaxis JavaScript y el esquema inicial de la base; el despliegue y las pruebas de integración reales aún están pendientes. Esta versión no procesa pagos ni confirma stock. Antes de vender, completá los pasos de despliegue, probá el panel y los pedidos, y activá protección antiabuso en Cloudflare.

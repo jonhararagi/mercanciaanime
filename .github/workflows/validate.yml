@@ -1,0 +1,67 @@
+name: Validate NekoPrint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check Cloudflare API JavaScript syntax
+        run: node --check 'functions/api/[[path]].js'
+      - name: Check inline JavaScript in storefront and admin
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class Scripts(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.inside = False
+                  self.external = False
+                  self.parts = []
+                  self.current = []
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() == "script":
+                      self.inside = True
+                      self.external = any(k.lower() == "src" for k, _ in attrs)
+                      self.current = []
+              def handle_data(self, data):
+                  if self.inside and not self.external:
+                      self.current.append(data)
+              def handle_endtag(self, tag):
+                  if tag.lower() == "script" and self.inside:
+                      if not self.external:
+                          self.parts.append("".join(self.current))
+                      self.inside = False
+                      self.external = False
+          for filename in ("index.html", "admin/index.html"):
+              parser = Scripts()
+              parser.feed(Path(filename).read_text(encoding="utf-8"))
+              for i, script in enumerate(parser.parts):
+                  Path("/tmp/check-script.js").write_text(script, encoding="utf-8")
+                  import subprocess
+                  subprocess.run(["node", "--check", "/tmp/check-script.js"], check=True)
+              print(f"OK: {filename}")
+          PY
+      - name: Validate D1 schema
+        run: |
+          python3 - <<'PY'
+          import sqlite3
+          from pathlib import Path
+          db = sqlite3.connect(":memory:")
+          db.executescript(Path("migrations/0001_init.sql").read_text(encoding="utf-8"))
+          assert db.execute("SELECT COUNT(*) FROM products").fetchone()[0] >= 7
+          assert db.execute("SELECT COUNT(*) FROM garment_prices").fetchone()[0] == 5
+          assert db.execute("SELECT COUNT(*) FROM admin_login_attempts").fetchone()[0] == 0
+          assert db.execute("SELECT COUNT(*) FROM order_attempts").fetchone()[0] == 0
+          print("OK: D1 schema and seed data")
+          PY

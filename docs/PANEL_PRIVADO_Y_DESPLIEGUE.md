@@ -39,7 +39,7 @@ La autenticación y la validación del servidor reducen el riesgo de manipulaci�
 - Usá Production para los pedidos reales; no uses datos reales en Preview.
 - Revisá y actualizá la plataforma cuando corresponda.
 - Antes de vender, probá login incorrecto, logout, sesión vencida, cambios de precios, diseños desactivados y validación de pedidos.
-- La API aún necesita protección antiabuso/rate limiting a nivel de Cloudflare y revisión de seguridad antes de considerarse lista para producción.
+- La API aplica límites básicos por IP (5 intentos de acceso en 15 minutos y 20 intentos de pedido por hora), pero estos no sustituyen las reglas de rate limiting/WAF de Cloudflare ni una revisión de seguridad antes de producción.
 - Los pedidos incluyen información personal que escriba el cliente. Definí cuánto tiempo conservarlos y quién puede acceder a la base.
 - Los enlaces de anime son referencias, no licencias de explotación comercial. Priorizá diseños propios o con licencia comercial documentada.
 

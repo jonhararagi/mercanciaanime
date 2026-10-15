@@ -5,15 +5,15 @@ Tienda web estática, responsive y pensada primero para celulares. No necesita i
 ## Qué incluye
 
 - Catálogo filtrable por series/categorías.
-- Personalizador de producto, talle, color, ubicación de estampa y notas.
+- Personalizador de producto, talle, ubicación de estampa y notas; las remeras se ofrecen en negro o blanco.
 - Opción de escribir un texto propio (por ejemplo, JUJUTSU KAISEN, BLEACH o DRAGON BALL) y verlo en vivo sobre la remera.
 - Vista previa de la remera con estampas de logo, en vez de solo emojis.
-- Catálogo inicial de logos de Akatsuki, Kimetsu no Yaiba, Dragon Ball, Jujutsu Kaisen, Bleach y Naruto.
+- Referencias de diseños populares para recibir consultas sobre Akatsuki, Kimetsu no Yaiba, Dragon Ball, Jujutsu Kaisen, Bleach y Naruto.
 - Carrito y total estimado.
 - Mensaje de pedido armado para WhatsApp o Telegram.
 - Diseño adaptable a celular y PC, sin dependencias externas.
 
-## Configuración obligatoria antes de recibir pedidos
+## Uso comercial y propiedad intelectual\n\nEl catálogo incluye referencias de franquicias de terceros y no acredita permiso para fabricar o vender sus logos/personajes. Antes de aceptar pedidos de esos diseños, verificá los derechos y obtené la autorización/licencia necesaria. Para reducir riesgos, priorizá diseños originales o con licencia comercial documentada. Ver [guía de estampas y fuentes](./docs/ESTAMPAS_Y_FUENTES.md).\n\n## Configuración obligatoria antes de recibir pedidos
 
 1. Abrí [index.html](./index.html) en GitHub y presioná el lápiz para editar.
 2. En la parte superior del bloque `<script>`, editá la línea existente `window.STORE_CONFIG = { whatsapp: "54911XXXXXXXX", telegram: "TuUsuarioTelegram" };`. No agregues una segunda configuración: reemplazá los valores de ejemplo.

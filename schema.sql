@@ -48,3 +48,17 @@ INSERT OR IGNORE INTO garment_prices (garment, price) VALUES
 ('Buzo',26000),
 ('Sticker',2500),
 ('Taza',7000);
+
+CREATE TABLE IF NOT EXISTS admin_login_attempts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ip_hash TEXT NOT NULL,
+  attempted_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_admin_login_attempts_ip_time ON admin_login_attempts(ip_hash, attempted_at);
+
+CREATE TABLE IF NOT EXISTS order_attempts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ip_hash TEXT NOT NULL,
+  attempted_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_order_attempts_ip_time ON order_attempts(ip_hash, attempted_at);

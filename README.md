@@ -2,6 +2,11 @@
 
 Tienda responsive, pensada primero para celulares, con catálogo, personalizador, pedidos por WhatsApp/Telegram y una primera versión de backend para proteger precios y gestionar pedidos.
 
+## Guías
+
+- [Guía fácil para usar la tienda sin programar](docs/GUIA_FACIL.md) — cambiar precios, mostrar estampas y atender pedidos.
+- [Configuración inicial del panel privado](docs/PANEL_PRIVADO_Y_DESPLIEGUE.md) — se hace una sola vez para publicar el sitio.
+
 ## Funciones
 
 - Catálogo de referencias de diseños de anime y opción de texto personalizado.

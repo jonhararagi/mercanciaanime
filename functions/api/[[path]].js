@@ -15,7 +15,7 @@ function corsHeaders(request) {
   const own = new URL(request.url).origin;
   return origin === own ? { "access-control-allow-origin": own, "vary": "Origin" } : {};
 }
-function constantTimeEqual(a, b) {
+async function hashIp(request) {\n  const ip = request.headers.get("CF-Connecting-IP") || "unknown";\n  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(ip));\n  return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, "0")).join("");\n}\nfunction constantTimeEqual(a, b) {
   if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
@@ -100,7 +100,7 @@ async function api(request, env) {
         const product = await env.DB.prepare("SELECT id, name, series, price FROM products WHERE id = ? AND enabled = 1").bind(Number(item.productId)).first();
         if (!product) return json({ error: "Una estampa ya no está disponible. Actualizá el catálogo." }, 400);
         name = product.name; series = product.series;
-        unitPrice = base.price + ((garment === "Remera clásica" || garment === "Remera oversize") ? Math.max(0, product.price - 12000) : 0);
+        unitPrice = garment === "Remera clásica" ? Math.max(base.price, product.price) : garment === "Remera oversize" ? base.price + Math.max(0, product.price - 12000) : base.price;
       }
       if (placement === "Frente y espalda") unitPrice += 3000;
       const note = typeof item.notes === "string" ? item.notes.trim().slice(0, 400) : "";

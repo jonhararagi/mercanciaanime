@@ -1,0 +1,9 @@
+name = "nekoprint"
+compatibility_date = "2026-10-15"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nekoprint-db"
+database_id = "REEMPLAZAR_CON_EL_ID_DE_D1"
+migrations_dir = "migrations"

@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 22
       - name: Check Cloudflare API JavaScript syntax
-        run: node --check 'functions/api/[[path]].js'
+        run: node --input-type=module --check < 'functions/api/[[path]].js'
       - name: Check inline JavaScript in storefront and admin
         shell: bash
         run: |

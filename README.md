@@ -1,51 +1,37 @@
-# NekoPrint — tienda de remeras y estampas anime
+# NekoPrint — tienda de remeras y estampas
 
-Tienda web estática, responsive y pensada primero para celulares. No necesita instalar Node, pagar hosting ni usar una base de datos para mostrar el catálogo y preparar pedidos.
+Tienda responsive, pensada primero para celulares, con catálogo, personalizador, pedidos por WhatsApp/Telegram y una primera versión de backend para proteger precios y gestionar pedidos.
 
-## Qué incluye
+## Funciones
 
-- Catálogo filtrable por series/categorías.
-- Personalizador de producto, talle, ubicación de estampa y notas; las remeras se ofrecen en negro o blanco.
-- Opción de escribir un texto propio (por ejemplo, JUJUTSU KAISEN, BLEACH o DRAGON BALL) y verlo en vivo sobre la remera.
-- Vista previa de la remera con estampas de logo, en vez de solo emojis.
-- Referencias de diseños populares para recibir consultas sobre Akatsuki, Kimetsu no Yaiba, Dragon Ball, Jujutsu Kaisen, Bleach y Naruto.
-- Carrito y total estimado.
-- Mensaje de pedido armado para WhatsApp o Telegram.
-- Diseño adaptable a celular y PC, sin dependencias externas.
+- Catálogo de referencias de diseños de anime y opción de texto personalizado.
+- Remeras en negro o blanco, selección de talle y ubicación de estampa.
+- Precios oficiales cargados desde el servidor; el servidor recalcula el total al registrar el pedido.
+- Panel privado en /admin/ para actualizar precios, ocultar/mostrar diseños y gestionar estados de pedidos.
+- API y base de datos Cloudflare Pages Functions + D1.
 
-## Uso comercial y propiedad intelectual\n\nEl catálogo incluye referencias de franquicias de terceros y no acredita permiso para fabricar o vender sus logos/personajes. Antes de aceptar pedidos de esos diseños, verificá los derechos y obtené la autorización/licencia necesaria. Para reducir riesgos, priorizá diseños originales o con licencia comercial documentada. Ver [guía de estampas y fuentes](./docs/ESTAMPAS_Y_FUENTES.md).\n\n## Configuración obligatoria antes de recibir pedidos
+## Importante: aún requiere configuración
 
-1. Abrí [index.html](./index.html) en GitHub y presioná el lápiz para editar.
-2. En la parte superior del bloque `<script>`, editá la línea existente `window.STORE_CONFIG = { whatsapp: "54911XXXXXXXX", telegram: "TuUsuarioTelegram" };`. No agregues una segunda configuración: reemplazá los valores de ejemplo.
+**No publiques esta versión en GitHub Pages para vender:** GitHub Pages no ejecuta el backend y las funciones de administración/pedidos no funcionarán allí. Primero hay que configurar Cloudflare Pages, D1 y los secretos privados. Seguí la guía docs/PANEL_PRIVADO_Y_DESPLIEGUE.md.
 
-3. Reemplazá los dos valores por los datos reales del negocio y guardá el cambio con **Commit changes**.
-4. En WhatsApp usá el código de país de Argentina (54), el 9 para celular y el número completo sin el 15. Verificá que el enlace abra el chat correcto.
+No se guardan contraseñas en el repositorio. Configurá ADMIN_PASSWORD y SESSION_SECRET como secretos en el panel de Cloudflare. No los pongas en archivos públicos.
 
-**Importante:** los botones no cobran ni envían automáticamente. Abren el canal elegido con el texto preparado para que el cliente lo revise y lo envíe. Telegram puede variar según la app/dispositivo. No se recopilan datos en un servidor ni se guardan pedidos al cerrar la página.
+## Configuración de contacto
 
-## Publicar gratis con GitHub Pages
+En index.html, reemplazá los valores de ejemplo de esta línea existente:
 
-1. Entrá en **Settings → Pages** en este repositorio.
-2. En **Build and deployment**, elegí **Deploy from a branch**.
-3. Seleccioná la rama `main` y la carpeta `/(root)`; guardá.
-4. Esperá la publicación y abrí la URL que GitHub muestre en esa pantalla.
+    window.STORE_CONFIG = { whatsapp: "54911XXXXXXXX", telegram: "TuUsuarioTelegram" };
 
-La URL normalmente tendrá el formato `https://jonhararagi.github.io/mercanciaanime/`. Usá la URL exacta que muestre Settings → Pages.
+En WhatsApp usá el código de país de Argentina (54), el 9 para celular y el número completo sin el 15. Verificá que el enlace abra el chat correcto. No agregues una segunda configuración.
 
-## Editar catálogo y precios
+## Precios
 
-En `index.html`, el catálogo está en el arreglo `products`. Cada producto contiene `id`, `name`, `series`, `icon`, `label` y `price`; algunos también tienen `image` y `source` para mostrar logos externos. La lista de fuentes está en [docs/ESTAMPAS_Y_FUENTES.md](./docs/ESTAMPAS_Y_FUENTES.md). Los precios son ejemplos y deben ajustarse a los costos reales de prenda, estampado, mano de obra, embalaje y margen.
+Después de desplegar y configurar D1, administrá los precios desde /admin/. La base empieza con valores de ejemplo. Cambialos por tus costos reales antes de recibir pedidos. El navegador no es la fuente oficial del precio.
 
-La tabla `prices` contiene los precios base de remera clásica, oversize, buzo, pack de stickers y taza. El adicional por estampa frente y espalda también está indicado en el código.
+## Derechos de las estampas
 
-## Antes de vender
+Los logos, nombres, personajes y marcas de anime pertenecen a sus respectivos titulares. Mostrar una imagen como referencia no implica permiso para fabricar o vender prendas con ella. Verificá las licencias aplicables; priorizá diseños propios o con licencia comercial documentada. Consultá docs/ESTAMPAS_Y_FUENTES.md.
 
-- Reemplazá precios de ejemplo, nombre, logo y diseños ilustrativos.
-- Las estampas de prueba cargan imágenes SVG directamente desde Wikimedia Commons; necesitan internet y no están descargadas dentro del repositorio. Si querés que la tienda no dependa de terceros, descargá los archivos desde las fichas enlazadas en la guía y guardalos localmente tras revisar licencias y condiciones de uso.
-- Indicá talles, medidas, colores disponibles, tiempos de producción, envíos, medios de pago y política de cambios.
-- Verificá los derechos comerciales antes de vender estampas de personajes, logos o ilustraciones de franquicias de anime. Que una serie sea popular no significa que sus personajes se puedan comercializar sin autorización.
-- Probá ambos botones de pedido desde un celular y una computadora.
+## Estado y limitaciones
 
-## Alcance actual
-
-Es un **catálogo y armador de pedidos**, no una plataforma de e-commerce con backend. No tiene cuentas de clientes, pagos online, inventario sincronizado ni panel administrativo. GitHub Pages publica archivos estáticos y no recibe pedidos por sí solo. Para administrar pedidos automáticamente hará falta integrar un servicio/backend más adelante.
+El código de la API y el panel está en el repositorio, pero el despliegue y las pruebas reales aún están pendientes. Esta versión no procesa pagos ni confirma stock. Antes de vender, completá los pasos de despliegue, probá el panel y los pedidos, y activá protección antiabuso en Cloudflare.
